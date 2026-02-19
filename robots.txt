@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Indica onde está o mapa do site
-Sitemap: https://www.SEU_DOMINIO.com.br/sitemap.xml
+Sitemap: https://kmanzzini.com.br/sitemap.xml
