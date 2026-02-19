@@ -21,6 +21,9 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Corta qualquer elemento que tente sair da largura da tela */
+    width: 100%;
 }
 
 body {
@@ -28,6 +31,9 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     background-color: var(--secondary-color);
+    overflow-x: hidden;
+    /* Corta qualquer elemento que tente sair da largura da tela */
+    width: 100%;
 }
 
 /* Utilitários */
@@ -352,6 +358,16 @@ h3 {
 }
 
 /* Sobre */
+#sobre {
+    background-color: var(--secondary-color);
+    /* Fundo Nude Claro */
+    position: relative;
+    z-index: 10;
+    /* Fica acima do slideshow */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+    /* Sombra suave no topo */
+}
+
 .split-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -359,15 +375,30 @@ h3 {
     align-items: center;
 }
 
+.text-content {
+    display: flex;
+    flex-direction: column;
+    /* Empilha os itens */
+    align-items: center;
+    /* Centraliza horizontalmente a foto e os itens */
+    text-align: center;
+    /* Centraliza o texto dos parágrafos */
+    padding: 20px;
+}
+
 .text-content h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    color: var(--primary-color);
+    font-size: 3.5rem;
+    /* Título um pouco maior */
+    margin-bottom: 25px;
 }
 
 .text-content p {
-    margin-bottom: 15px;
-    color: var(--text-light);
+    font-size: 1.1rem;
+    /* Texto levemente maior para leitura fácil */
+    max-width: 90%;
+    /* Impede que o texto fique muito largo, cansativo de ler */
+    margin-bottom: 20px;
+    color: #555;
 }
 
 .image-content img {
@@ -378,8 +409,13 @@ h3 {
 
 .features {
     display: flex;
-    gap: 30px;
-    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 1px;
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    margin-top: 5px;
+    gap: 10px;
+    /* Mais espaço entre os ícones */
 }
 
 .feature-item {
@@ -397,22 +433,24 @@ h3 {
 /* --- 2. Foto de Perfil Redonda (Seção Sobre) --- */
 
 .profile-pic {
-    width: 150px;
-    /* Largura */
-    height: 150px;
-    /* Altura igual para ficar quadrado antes de arredondar */
+    width: 280px;
+    /* Aumentado de 150px para 280px */
+    height: 280px;
+    /* Mantém a proporção quadrada */
     border-radius: 50%;
-    /* Faz ficar perfeitamente redondo */
     object-fit: cover;
-    /* Garante que a foto não distorça se não for quadrada */
 
-    /* Estilos visuais */
-    border: 3px solid var(--primary-color);
-    /* Borda dourada fina */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    /* Sombra suave */
-    margin-bottom: 25px;
-    /* Espaço entre a foto e o título "Sobre" */
+    /* Design */
+    border: 4px solid var(--primary-color);
+    /* Borda um pouco mais grossa */
+    padding: 5px;
+    /* Um respiro entre a foto e a borda dourada fica elegante */
+    background-color: var(--white);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+    /* Sombra dourada suave */
+
+    margin-bottom: 35px;
+    /* Mais espaço entre a foto e o título */
 
     /* Animação de entrada suave */
     opacity: 0;
@@ -551,21 +589,32 @@ h3 {
     font-size: 1.2rem;
 }
 
-.map-placeholder {
-    background: #444;
-    height: 300px;
+.map-area {
     width: 100%;
+    overflow: hidden;
+    /* Garante que nada saia da caixa */
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #888;
+}
+
+.map-placeholder {
+    width: 100%;
+    height: auto;
+    /* Deixa a altura se ajustar ou define fixa abaixo */
+    min-height: 350px;
+    /* Garante altura mínima no mobile */
+    position: relative;
 }
 
 .map-placeholder i {
     font-size: 3rem;
     margin-bottom: 10px;
+}
+
+.map-placeholder iframe {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 350px;
+    display: block;
 }
 
 /* Footer */
@@ -623,6 +672,13 @@ footer {
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 2.5rem;
+        /* Reduz um pouco para não quebrar feio */
+        line-height: 1.2;
+    }
+
+    .hero p {
+        padding: 0 15px;
+        /* Margem de segurança para o texto não colar na borda */
     }
 
     .split-layout {
@@ -636,7 +692,33 @@ footer {
     /* Mobile menu seria implementado via JS */
     .hamburger {
         display: block;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        color: var(--text-dark);
+        z-index: 1001;
+        /* Garante que fique acima de tudo */
+    }
+
+    .navbar .nav-links {
+        position: fixed;
+        /* Mudado de absolute para fixed para travar na tela */
+        top: 0;
+        right: -100%;
+        /* Começa escondido totalmente à direita */
+        width: 70%;
+        /* Ocupa 70% da tela, estilo gaveta lateral */
+        height: 100vh;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Centraliza itens verticalmente */
+        align-items: center;
+        transition: right 0.4s ease-in-out;
+        /* Animação suave deslizando */
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        gap: 30px;
+        /* Espaço entre os links */
     }
 
     /* Menu mobile simples para demonstração */
@@ -646,8 +728,14 @@ footer {
         position: absolute;
         top: 70px;
         left: 0;
+        right: 0;
         width: 100%;
         background: var(--white);
         padding: 20px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 colunas no mobile fica melhor */
     }
 }

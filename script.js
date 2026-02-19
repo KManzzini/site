@@ -2,9 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Menu Mobile
     const hamburger = document.querySelector('.hamburger');
     const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-links a'); // Seleciona os links
 
     hamburger.addEventListener('click', () => {
         navbar.classList.toggle('active');
+    });
+
+    //Fecha o menu ao clicar em qualquer link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navbar.classList.remove('active');
+        });
     });
 
     // Animação ao Rolar (Scroll Animation)
